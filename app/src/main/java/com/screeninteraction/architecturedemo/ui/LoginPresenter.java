@@ -2,13 +2,14 @@ package com.screeninteraction.architecturedemo.ui;
 
 import com.screeninteraction.architecturedemo.R;
 import com.screeninteraction.architecturedemo.io.InteractorResponse;
-import com.screeninteraction.architecturedemo.io.LoginInteractor;
+import com.screeninteraction.architecturedemo.io.usecases.LoginInteractor;
 import com.screeninteraction.architecturedemo.io.TransactionCallback;
+import com.screeninteraction.architecturedemo.io.usecases.LoginRequest;
+import com.screeninteraction.architecturedemo.io.usecases.LoginResponse;
 import com.screeninteraction.architecturedemo.system.StringProvider;
 import com.screeninteraction.architecturedemo.utils.TextUtils;
 
 public class LoginPresenter implements LoginContract.Actions {
-
     private final LoginContract.View view;
     private LoginInteractor interactor;
     private StringProvider strings;
@@ -44,16 +45,15 @@ public class LoginPresenter implements LoginContract.Actions {
     @Override
     public void onLoginButtonClick() {
         toggleLoadingState(true);
-
-        interactor.setRequest(view.getUsername(), view.getPassword());
+        LoginRequest request = new LoginRequest(view.getUsername(), view.getPassword());
+        interactor.setRequest(request);
         interactor.execute(new TransactionCallback() {
             @Override
             public void onSuccess(InteractorResponse response) {
                 toggleLoadingState(false);
-                view.showInfo(((LoginInteractor.Response)response).welcomeMessage);
+                view.showInfo(((LoginResponse)response).getWelcomeMessage());
                 view.startMainActivity();
             }
-
             @Override
             public void onError(String errorMessage, int errorCode) {
                 toggleLoadingState(false);
@@ -75,3 +75,4 @@ public class LoginPresenter implements LoginContract.Actions {
         }
     }
 }
+

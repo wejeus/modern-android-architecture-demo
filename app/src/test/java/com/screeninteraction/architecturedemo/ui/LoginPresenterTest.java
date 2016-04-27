@@ -1,6 +1,6 @@
 package com.screeninteraction.architecturedemo.ui;
 
-import com.screeninteraction.architecturedemo.io.LoginInteractor;
+import com.screeninteraction.architecturedemo.io.usecases.LoginInteractor;
 import com.screeninteraction.architecturedemo.system.StringProvider;
 
 import junit.framework.TestCase;

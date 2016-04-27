@@ -10,13 +10,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.screeninteraction.architecturedemo.R;
-import com.screeninteraction.architecturedemo.io.LoginInteractor;
+import com.screeninteraction.architecturedemo.io.usecases.LoginInteractor;
 import com.screeninteraction.architecturedemo.system.DefaultPreferencesProvider;
 import com.screeninteraction.architecturedemo.system.DefaultStringProvider;
 import com.screeninteraction.architecturedemo.utils.AfterTextChangedWatcher;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.View {
-
     private EditText usernameView;
     private EditText passwordView;
     private Button loginButton;
@@ -66,7 +65,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         usernameView.addTextChangedListener(watcher);
         passwordView.addTextChangedListener(watcher);
         loginButton.setOnClickListener(loginButtonClickListener);
-
         presenter.didInitializeView();
     }
 
@@ -110,3 +108,5 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }
+
+
